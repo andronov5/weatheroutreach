@@ -1,23 +1,23 @@
-const navToggle = document.querySelector('.nav-toggle');
-const siteNav = document.querySelector('#site-nav');
+const toggle = document.querySelector('.nav-toggle');
+const nav = document.querySelector('.site-nav');
 
-if (navToggle && siteNav) {
-  navToggle.addEventListener('click', () => {
-    const isOpen = siteNav.classList.toggle('is-open');
+if (toggle && nav) {
+  toggle.addEventListener('click', () => {
+    const isOpen = nav.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', String(isOpen));
     document.body.classList.toggle('menu-open', isOpen);
-    navToggle.setAttribute('aria-expanded', String(isOpen));
   });
 
-  siteNav.querySelectorAll('a').forEach((link) => {
+  nav.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
-      siteNav.classList.remove('is-open');
+      nav.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
       document.body.classList.remove('menu-open');
-      navToggle.setAttribute('aria-expanded', 'false');
     });
   });
 }
 
-const reveals = document.querySelectorAll('.reveal');
+const revealEls = document.querySelectorAll('.reveal');
 
 if ('IntersectionObserver' in window) {
   const observer = new IntersectionObserver((entries) => {
@@ -29,7 +29,7 @@ if ('IntersectionObserver' in window) {
     });
   }, { threshold: 0.12 });
 
-  reveals.forEach((item) => observer.observe(item));
+  revealEls.forEach((el) => observer.observe(el));
 } else {
-  reveals.forEach((item) => item.classList.add('is-visible'));
+  revealEls.forEach((el) => el.classList.add('is-visible'));
 }
